@@ -1,0 +1,62 @@
+[
+  {
+    "id": "bf_001",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Off-by-one in range",
+    "buggy_code": "def sum_1_to_n(n: int) -> int:\n    \"\"\"Return the sum of integers from 1 to n (inclusive).\"\"\"\n    total = 0\n    for i in range(1, n):\n        total += i\n    return total",
+    "bug_description": "The function should sum integers from 1 to n inclusive, but it's missing n due to an off-by-one error in the range call.",
+    "reference_solution": "def sum_1_to_n(n: int) -> int:\n    \"\"\"Return the sum of integers from 1 to n (inclusive).\"\"\"\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
+    "test_code": "import unittest\n\nclass TestSum1ToN(unittest.TestCase):\n    def test_basic(self):\n        self.assertEqual(sum_1_to_n(1), 1)\n\n    def test_five(self):\n        self.assertEqual(sum_1_to_n(5), 15)\n\n    def test_ten(self):\n        self.assertEqual(sum_1_to_n(10), 55)\n\n    def test_hundred(self):\n        self.assertEqual(sum_1_to_n(100), 5050)",
+    "tags": ["off-by-one", "range", "loops"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_002",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Comparison operator reversed",
+    "buggy_code": "def find_max(numbers: list[int]) -> int:\n    \"\"\"Return the maximum value in a non-empty list of integers.\"\"\"\n    result = numbers[0]\n    for num in numbers[1:]:\n        if num < result:\n            result = num\n    return result",
+    "bug_description": "The comparison operator is reversed: it uses '<' instead of '>' so it finds the minimum instead of the maximum.",
+    "reference_solution": "def find_max(numbers: list[int]) -> int:\n    \"\"\"Return the maximum value in a non-empty list of integers.\"\"\"\n    result = numbers[0]\n    for num in numbers[1:]:\n        if num > result:\n            result = num\n    return result",
+    "test_code": "import unittest\n\nclass TestFindMax(unittest.TestCase):\n    def test_single(self):\n        self.assertEqual(find_max([42]), 42)\n\n    def test_ascending(self):\n        self.assertEqual(find_max([1, 2, 3, 4, 5]), 5)\n\n    def test_descending(self):\n        self.assertEqual(find_max([5, 4, 3, 2, 1]), 5)\n\n    def test_negatives(self):\n        self.assertEqual(find_max([-3, -1, -7, -2]), -1)\n\n    def test_mixed(self):\n        self.assertEqual(find_max([3, 1, 4, 1, 5, 9, 2, 6]), 9)",
+    "tags": ["comparison", "operator", "logic"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_003",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Missing return statement",
+    "buggy_code": "def is_palindrome(s: str) -> bool:\n    \"\"\"Check if a string is a palindrome (case-insensitive, ignoring spaces).\"\"\"\n    cleaned = s.lower().replace(' ', '')\n    cleaned == cleaned[::-1]",
+    "bug_description": "The function computes the comparison but doesn't return the result. Missing 'return' keyword.",
+    "reference_solution": "def is_palindrome(s: str) -> bool:\n    \"\"\"Check if a string is a palindrome (case-insensitive, ignoring spaces).\"\"\"\n    cleaned = s.lower().replace(' ', '')\n    return cleaned == cleaned[::-1]",
+    "test_code": "import unittest\n\nclass TestIsPalindrome(unittest.TestCase):\n    def test_simple(self):\n        self.assertTrue(is_palindrome('racecar'))\n\n    def test_with_spaces(self):\n        self.assertTrue(is_palindrome('race car'))\n\n    def test_case_insensitive(self):\n        self.assertTrue(is_palindrome('RaceCar'))\n\n    def test_not_palindrome(self):\n        self.assertFalse(is_palindrome('hello'))\n\n    def test_single_char(self):\n        self.assertTrue(is_palindrome('a'))\n\n    def test_empty(self):\n        self.assertTrue(is_palindrome(''))",
+    "tags": ["return", "missing-statement"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_004",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Variable name typo",
+    "buggy_code": "def count_vowels(text: str) -> int:\n    \"\"\"Count the number of vowels (a, e, i, o, u) in the text (case-insensitive).\"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text:\n        if char.lower() in vowels:\n            coutn += 1\n    return count",
+    "bug_description": "There is a typo in the variable name: 'coutn' is used instead of 'count' when incrementing.",
+    "reference_solution": "def count_vowels(text: str) -> int:\n    \"\"\"Count the number of vowels (a, e, i, o, u) in the text (case-insensitive).\"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+    "test_code": "import unittest\n\nclass TestCountVowels(unittest.TestCase):\n    def test_basic(self):\n        self.assertEqual(count_vowels('hello'), 2)\n\n    def test_all_vowels(self):\n        self.assertEqual(count_vowels('aeiou'), 5)\n\n    def test_no_vowels(self):\n        self.assertEqual(count_vowels('bcdfg'), 0)\n\n    def test_mixed_case(self):\n        self.assertEqual(count_vowels('HeLLo WoRLd'), 3)\n\n    def test_empty(self):\n        self.assertEqual(count_vowels(''), 0)",
+    "tags": ["typo", "variable-name", "NameError"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_005",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Wrong condition logic",
+    "buggy_code": "def classify_age(age: int) -> str:\n    \"\"\"Classify age into categories.\n    \n    Returns:\n        'child' for age 0-12\n        'teenager' for age 13-17\n        'adult' for age 18-64\n        'senior' for age 65+\n    \"\"\"\n    if age <= 12:\n        return 'child'\n    elif age <= 17:\n        return 'teenager'\n    elif age >= 65:\n        return 'adult'\n    else:\n        return 'senior'",
+    "bug_description": "The conditions for 'adult' and 'senior' are swapped: age >= 65 returns 'adult' but should return 'senior', and the else returns 'senior' but should return 'adult'.",
+    "reference_solution": "def classify_age(age: int) -> str:\n    \"\"\"Classify age into categories.\n    \n    Returns:\n        'child' for age 0-12\n        'teenager' for age 13-17\n        'adult' for age 18-64\n        'senior' for age 65+\n    \"\"\"\n    if age <= 12:\n        return 'child'\n    elif age <= 17:\n        return 'teenager'\n    elif age >= 65:\n        return 'senior'\n    else:\n        return 'adult'",
+    "test_code": "import unittest\n\nclass TestClassifyAge(unittest.TestCase):\n    def test_child(self):\n        self.assertEqual(classify_age(5), 'child')\n        self.assertEqual(classify_age(12), 'child')\n\n    def test_teenager(self):\n        self.assertEqual(classify_age(13), 'teenager')\n        self.assertEqual(classify_age(17), 'teenager')\n\n    def test_adult(self):\n        self.assertEqual(classify_age(18), 'adult')\n        self.assertEqual(classify_age(30), 'adult')\n        self.assertEqual(classify_age(64), 'adult')\n\n    def test_senior(self):\n        self.assertEqual(classify_age(65), 'senior')\n        self.assertEqual(classify_age(80), 'senior')\n\n    def test_zero(self):\n        self.assertEqual(classify_age(0), 'child')",
+    "tags": ["condition", "logic-error", "swapped"],
+    "time_limit_seconds": 5
+  }
+]

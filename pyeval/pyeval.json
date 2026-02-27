@@ -1,0 +1,12 @@
+{
+    "api_base": "http://localhost:8000/v1",
+    "api_key": "EMPTY",
+    "model": "default",
+    "temperature": 0.0,
+    "max_tokens": 2048,
+    "timeout": 30,
+    "sandbox_timeout": 10,
+    "max_concurrent_api": 4,
+    "max_concurrent_sandbox": 8,
+    "output_dir": "pyeval_results"
+}

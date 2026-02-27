@@ -1,0 +1,62 @@
+[
+  {
+    "id": "bf_006",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Shallow copy vs deep copy",
+    "buggy_code": "def deep_copy_matrix(matrix: list[list[int]]) -> list[list[int]]:\n    \"\"\"Create a deep copy of a 2D matrix so modifying the copy\n    does not affect the original.\"\"\"\n    return matrix.copy()",
+    "bug_description": "Using list.copy() only creates a shallow copy. Inner lists are still shared references, so modifying the copy's inner lists will mutate the original.",
+    "reference_solution": "def deep_copy_matrix(matrix: list[list[int]]) -> list[list[int]]:\n    \"\"\"Create a deep copy of a 2D matrix so modifying the copy\n    does not affect the original.\"\"\"\n    return [row.copy() for row in matrix]",
+    "test_code": "import unittest\n\nclass TestDeepCopyMatrix(unittest.TestCase):\n    def test_basic_copy(self):\n        original = [[1, 2], [3, 4]]\n        copied = deep_copy_matrix(original)\n        self.assertEqual(copied, [[1, 2], [3, 4]])\n\n    def test_independence(self):\n        original = [[1, 2], [3, 4]]\n        copied = deep_copy_matrix(original)\n        copied[0][0] = 99\n        self.assertEqual(original[0][0], 1)\n\n    def test_row_independence(self):\n        original = [[1, 2, 3]]\n        copied = deep_copy_matrix(original)\n        copied[0].append(4)\n        self.assertEqual(len(original[0]), 3)\n\n    def test_empty(self):\n        self.assertEqual(deep_copy_matrix([]), [])\n\n    def test_single_element(self):\n        original = [[5]]\n        copied = deep_copy_matrix(original)\n        copied[0][0] = 10\n        self.assertEqual(original[0][0], 5)",
+    "tags": ["shallow-copy", "deep-copy", "mutation"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_007",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Mutable default argument",
+    "buggy_code": "def append_to_list(value: int, lst: list[int] = []) -> list[int]:\n    \"\"\"Append a value to the list and return it.\n    If no list is provided, create a new empty list.\"\"\"\n    lst.append(value)\n    return lst",
+    "bug_description": "Using a mutable default argument (empty list) causes the same list object to be shared across calls. Each call without an explicit list argument appends to the same default list.",
+    "reference_solution": "def append_to_list(value: int, lst: list[int] | None = None) -> list[int]:\n    \"\"\"Append a value to the list and return it.\n    If no list is provided, create a new empty list.\"\"\"\n    if lst is None:\n        lst = []\n    lst.append(value)\n    return lst",
+    "test_code": "import unittest\n\nclass TestAppendToList(unittest.TestCase):\n    def test_with_existing_list(self):\n        result = append_to_list(1, [10, 20])\n        self.assertEqual(result, [10, 20, 1])\n\n    def test_default_list_isolation(self):\n        result1 = append_to_list(1)\n        result2 = append_to_list(2)\n        self.assertEqual(result1, [1])\n        self.assertEqual(result2, [2])\n\n    def test_multiple_defaults(self):\n        a = append_to_list(10)\n        b = append_to_list(20)\n        c = append_to_list(30)\n        self.assertEqual(a, [10])\n        self.assertEqual(b, [20])\n        self.assertEqual(c, [30])",
+    "tags": ["mutable-default", "gotcha", "function-argument"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_008",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Wrong exception type caught",
+    "buggy_code": "def safe_divide(a: float, b: float) -> dict:\n    \"\"\"Safely divide a by b. Returns {'result': value} on success,\n    or {'error': message} on failure.\n    Handle both division by zero and non-numeric inputs.\"\"\"\n    try:\n        result = a / b\n        return {'result': result}\n    except ValueError:\n        return {'error': 'Division by zero'}\n    except TypeError:\n        return {'error': f'Invalid types: {type(a).__name__}, {type(b).__name__}'}",
+    "bug_description": "Division by zero raises ZeroDivisionError, not ValueError. The except clause catches the wrong exception type, so ZeroDivisionError will propagate unhandled.",
+    "reference_solution": "def safe_divide(a: float, b: float) -> dict:\n    \"\"\"Safely divide a by b. Returns {'result': value} on success,\n    or {'error': message} on failure.\n    Handle both division by zero and non-numeric inputs.\"\"\"\n    try:\n        result = a / b\n        return {'result': result}\n    except ZeroDivisionError:\n        return {'error': 'Division by zero'}\n    except TypeError:\n        return {'error': f'Invalid types: {type(a).__name__}, {type(b).__name__}'}",
+    "test_code": "import unittest\n\nclass TestSafeDivide(unittest.TestCase):\n    def test_normal(self):\n        self.assertEqual(safe_divide(10, 2), {'result': 5.0})\n\n    def test_division_by_zero(self):\n        result = safe_divide(10, 0)\n        self.assertIn('error', result)\n        self.assertEqual(result['error'], 'Division by zero')\n\n    def test_float_division(self):\n        self.assertEqual(safe_divide(7, 2), {'result': 3.5})\n\n    def test_type_error(self):\n        result = safe_divide(10, 'a')\n        self.assertIn('error', result)\n\n    def test_negative(self):\n        self.assertEqual(safe_divide(-10, 2), {'result': -5.0})",
+    "tags": ["exception", "wrong-type", "error-handling"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_009",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Closure variable capture",
+    "buggy_code": "def make_multipliers(n: int) -> list:\n    \"\"\"Create a list of n multiplier functions.\n    make_multipliers(5) should return [f0, f1, f2, f3, f4]\n    where fi(x) returns x * i.\"\"\"\n    multipliers = []\n    for i in range(n):\n        multipliers.append(lambda x: x * i)\n    return multipliers",
+    "bug_description": "The lambda captures the variable 'i' by reference, not by value. All lambdas end up using the final value of i (n-1) instead of their respective loop values.",
+    "reference_solution": "def make_multipliers(n: int) -> list:\n    \"\"\"Create a list of n multiplier functions.\n    make_multipliers(5) should return [f0, f1, f2, f3, f4]\n    where fi(x) returns x * i.\"\"\"\n    multipliers = []\n    for i in range(n):\n        multipliers.append(lambda x, i=i: x * i)\n    return multipliers",
+    "test_code": "import unittest\n\nclass TestMakeMultipliers(unittest.TestCase):\n    def test_basic(self):\n        mults = make_multipliers(5)\n        self.assertEqual(mults[0](10), 0)\n        self.assertEqual(mults[1](10), 10)\n        self.assertEqual(mults[2](10), 20)\n        self.assertEqual(mults[3](10), 30)\n        self.assertEqual(mults[4](10), 40)\n\n    def test_three(self):\n        mults = make_multipliers(3)\n        self.assertEqual(mults[0](5), 0)\n        self.assertEqual(mults[1](5), 5)\n        self.assertEqual(mults[2](5), 10)\n\n    def test_one(self):\n        mults = make_multipliers(1)\n        self.assertEqual(len(mults), 1)\n        self.assertEqual(mults[0](7), 0)",
+    "tags": ["closure", "late-binding", "lambda"],
+    "time_limit_seconds": 5
+  },
+  {
+    "id": "bf_010",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Integer division vs float division",
+    "buggy_code": "def compute_average(numbers: list[int]) -> float:\n    \"\"\"Compute the arithmetic average of a list of integers.\n    Return 0.0 for an empty list.\"\"\"\n    if not numbers:\n        return 0.0\n    return sum(numbers) // len(numbers)",
+    "bug_description": "Using // (floor/integer division) instead of / (true division) truncates the result to an integer, losing the fractional part.",
+    "reference_solution": "def compute_average(numbers: list[int]) -> float:\n    \"\"\"Compute the arithmetic average of a list of integers.\n    Return 0.0 for an empty list.\"\"\"\n    if not numbers:\n        return 0.0\n    return sum(numbers) / len(numbers)",
+    "test_code": "import unittest\n\nclass TestComputeAverage(unittest.TestCase):\n    def test_basic(self):\n        self.assertAlmostEqual(compute_average([1, 2, 3]), 2.0)\n\n    def test_fractional(self):\n        self.assertAlmostEqual(compute_average([1, 2]), 1.5)\n\n    def test_single(self):\n        self.assertAlmostEqual(compute_average([5]), 5.0)\n\n    def test_empty(self):\n        self.assertAlmostEqual(compute_average([]), 0.0)\n\n    def test_large(self):\n        self.assertAlmostEqual(compute_average([10, 20, 30]), 20.0)\n\n    def test_odd_result(self):\n        self.assertAlmostEqual(compute_average([1, 2, 3, 4]), 2.5)",
+    "tags": ["integer-division", "floor-division", "arithmetic"],
+    "time_limit_seconds": 5
+  }
+]

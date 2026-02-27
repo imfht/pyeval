@@ -1,0 +1,167 @@
+[
+  {
+    "id": "bf_001",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Off-by-one in range",
+    "passed": true,
+    "error": null,
+    "generated_code": "def sum_1_to_n(n: int) -> int:\n    \"\"\"Return the sum of integers from 1 to n (inclusive).\"\"\"\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_002",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Comparison operator reversed",
+    "passed": true,
+    "error": null,
+    "generated_code": "def find_max(numbers: list[int]) -> int:\n    \"\"\"Return the maximum value in a non-empty list of integers.\"\"\"\n    result = numbers[0]\n    for num in numbers[1:]:\n        if num > result:\n            result = num\n    return result",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_003",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Missing return statement",
+    "passed": true,
+    "error": null,
+    "generated_code": "def is_palindrome(s: str) -> bool:\n    \"\"\"Check if a string is a palindrome (case-insensitive, ignoring spaces).\"\"\"\n    cleaned = s.lower().replace(' ', '')\n    return cleaned == cleaned[::-1]",
+    "stdout": "",
+    "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_004",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Variable name typo",
+    "passed": true,
+    "error": null,
+    "generated_code": "def count_vowels(text: str) -> int:\n    \"\"\"Count the number of vowels (a, e, i, o, u) in the text (case-insensitive).\"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_005",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Wrong condition logic",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_006",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Shallow copy vs deep copy",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_007",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Mutable default argument",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_008",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Wrong exception type caught",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_009",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Closure variable capture",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_010",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Integer division vs float division",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_011",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Thread race condition - missing lock",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_012",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Generator exhaustion on second iteration",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_013",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Decorator missing functools.wraps",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_014",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Diamond inheritance MRO issue",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_015",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Async context manager misuse",
+    "passed": false,
+    "error": "API error: HTTP Error 429: Too Many Requests",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  }
+]

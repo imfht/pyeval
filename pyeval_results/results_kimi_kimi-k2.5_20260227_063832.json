@@ -1,0 +1,167 @@
+[
+  {
+    "id": "bf_001",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Off-by-one in range",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_002",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Comparison operator reversed",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_003",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Missing return statement",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_004",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Variable name typo",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_005",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Wrong condition logic",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_006",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Shallow copy vs deep copy",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_007",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Mutable default argument",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_008",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Wrong exception type caught",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_009",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Closure variable capture",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_010",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Integer division vs float division",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_011",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Thread race condition - missing lock",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_012",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Generator exhaustion on second iteration",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_013",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Decorator missing functools.wraps",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_014",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Diamond inheritance MRO issue",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "id": "bf_015",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Async context manager misuse",
+    "passed": false,
+    "error": "API error: HTTP Error 400: Bad Request",
+    "generated_code": "",
+    "stdout": "",
+    "stderr": ""
+  }
+]

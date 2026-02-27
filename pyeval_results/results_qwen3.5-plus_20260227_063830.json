@@ -1,0 +1,167 @@
+[
+  {
+    "id": "bf_001",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Off-by-one in range",
+    "passed": true,
+    "error": null,
+    "generated_code": "def sum_1_to_n(n: int) -> int:\n    \"\"\"Return the sum of integers from 1 to n (inclusive).\"\"\"\n    total = 0\n    for i in range(1, n + 1):\n        total += i\n    return total",
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_002",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Comparison operator reversed",
+    "passed": true,
+    "error": null,
+    "generated_code": "def find_max(numbers: list[int]) -> int:\n    \"\"\"Return the maximum value in a non-empty list of integers.\"\"\"\n    result = numbers[0]\n    for num in numbers[1:]:\n        if num > result:\n            result = num\n    return result",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_003",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Missing return statement",
+    "passed": true,
+    "error": null,
+    "generated_code": "def is_palindrome(s: str) -> bool:\n    \"\"\"Check if a string is a palindrome (case-insensitive, ignoring spaces).\"\"\"\n    cleaned = s.lower().replace(' ', '')\n    return cleaned == cleaned[::-1]",
+    "stdout": "",
+    "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_004",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Variable name typo",
+    "passed": true,
+    "error": null,
+    "generated_code": "def count_vowels(text: str) -> int:\n    \"\"\"Count the number of vowels (a, e, i, o, u) in the text (case-insensitive).\"\"\"\n    vowels = 'aeiou'\n    count = 0\n    for char in text:\n        if char.lower() in vowels:\n            count += 1\n    return count",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_005",
+    "category": "bugfix",
+    "difficulty": "easy",
+    "title": "Wrong condition logic",
+    "passed": true,
+    "error": null,
+    "generated_code": "def classify_age(age: int) -> str:\n    \"\"\"Classify age into categories.\n    \n    Returns:\n        'child' for age 0-12\n        'teenager' for age 13-17\n        'adult' for age 18-64\n        'senior' for age 65+\n    \"\"\"\n    if age <= 12:\n        return 'child'\n    elif age <= 17:\n        return 'teenager'\n    elif age >= 65:\n        return 'senior'\n    else:\n        return 'adult'",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_006",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Shallow copy vs deep copy",
+    "passed": true,
+    "error": null,
+    "generated_code": "def deep_copy_matrix(matrix: list[list[int]]) -> list[list[int]]:\n    \"\"\"Create a deep copy of a 2D matrix so modifying the copy\n    does not affect the original.\"\"\"\n    return [row.copy() for row in matrix]",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_007",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Mutable default argument",
+    "passed": true,
+    "error": null,
+    "generated_code": "def append_to_list(value: int, lst: list[int] | None = None) -> list[int]:\n    \"\"\"Append a value to the list and return it.\n    If no list is provided, create a new empty list.\"\"\"\n    if lst is None:\n        lst = []\n    lst.append(value)\n    return lst",
+    "stdout": "",
+    "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_008",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Wrong exception type caught",
+    "passed": true,
+    "error": null,
+    "generated_code": "def safe_divide(a: float, b: float) -> dict:\n    \"\"\"Safely divide a by b. Returns {'result': value} on success,\n    or {'error': message} on failure.\n    Handle both division by zero and non-numeric inputs.\"\"\"\n    try:\n        result = a / b\n        return {'result': result}\n    except ZeroDivisionError:\n        return {'error': 'Division by zero'}\n    except TypeError:\n        return {'error': f'Invalid types: {type(a).__name__}, {type(b).__name__}'}",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_009",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Closure variable capture",
+    "passed": true,
+    "error": null,
+    "generated_code": "def make_multipliers(n: int) -> list:\n    \"\"\"Create a list of n multiplier functions.\n    make_multipliers(5) should return [f0, f1, f2, f3, f4]\n    where fi(x) returns x * i.\"\"\"\n    multipliers = []\n    for i in range(n):\n        multipliers.append(lambda x, i=i: x * i)\n    return multipliers",
+    "stdout": "",
+    "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_010",
+    "category": "bugfix",
+    "difficulty": "medium",
+    "title": "Integer division vs float division",
+    "passed": true,
+    "error": null,
+    "generated_code": "def compute_average(numbers: list[int]) -> float:\n    \"\"\"Compute the arithmetic average of a list of integers.\n    Return 0.0 for an empty list.\"\"\"\n    if not numbers:\n        return 0.0\n    return sum(numbers) / len(numbers)",
+    "stdout": "",
+    "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_011",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Thread race condition - missing lock",
+    "passed": true,
+    "error": null,
+    "generated_code": "import threading\n\nclass Counter:\n    \"\"\"A thread-safe counter.\"\"\"\n    def __init__(self):\n        self.value = 0\n        self.lock = threading.Lock()\n\n    def increment(self):\n        with self.lock:\n            self.value += 1\n\n    def get(self) -> int:\n        with self.lock:\n            return self.value\n\n\ndef parallel_increment(n: int, num_threads: int = 4) -> int:\n    \"\"\"Increment a counter n times using multiple threads.\n    Returns the final counter value which should equal n.\"\"\"\n    counter = Counter()\n    threads = []\n    per_thread = n // num_threads\n\n    def worker(count):\n        for _ in range(count):\n            counter.increment()\n\n    for i in range(num_threads):\n        count = per_thread + (1 if i < n % num_threads else 0)\n        t = threading.Thread(target=worker, args=(count,))\n        threads.append(t)\n        t.start()\n\n    for t in threads:\n        t.join()\n\n    return counter.get()",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.108s\n\nOK\n"
+  },
+  {
+    "id": "bf_012",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Generator exhaustion on second iteration",
+    "passed": true,
+    "error": null,
+    "generated_code": "def multi_pass_stats(data) -> dict:\n    \"\"\"Compute statistics over data in multiple passes.\n    \n    Args:\n        data: an iterable of numbers\n    \n    Returns:\n        dict with 'sum', 'count', 'mean', and 'max' keys.\n    \"\"\"\n    # Convert to list to allow multiple passes if data is a generator/iterator\n    data_list = list(data)\n    \n    total = sum(data_list)\n    count = len(data_list)\n    mean = total / count if count > 0 else 0.0\n    maximum = max(data_list) if count > 0 else None\n    return {'sum': total, 'count': count, 'mean': mean, 'max': maximum}",
+    "stdout": "",
+    "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_013",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Decorator missing functools.wraps",
+    "passed": true,
+    "error": null,
+    "generated_code": "import time\nfrom functools import wraps\n\ndef timing_decorator(func):\n    \"\"\"Decorator that measures and stores execution time.\n    The decorated function should preserve the original function's\n    __name__ and __doc__ attributes.\"\"\"\n    @wraps(func)\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        end = time.time()\n        wrapper.last_elapsed = end - start\n        return result\n    wrapper.last_elapsed = 0.0\n    return wrapper",
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.005s\n\nOK\n"
+  },
+  {
+    "id": "bf_014",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Diamond inheritance MRO issue",
+    "passed": true,
+    "error": null,
+    "generated_code": "class Animal:\n    def __init__(self, name: str):\n        self.name = name\n        self.traits = []\n\n    def describe(self) -> str:\n        return f\"{self.name}: {', '.join(self.traits)}\"\n\n\nclass Swimmer(Animal):\n    def __init__(self, name: str):\n        super().__init__(name)\n        self.traits.append('can swim')\n\n\nclass Flyer(Animal):\n    def __init__(self, name: str):\n        super().__init__(name)\n        self.traits.append('can fly')\n\n\nclass Duck(Swimmer, Flyer):\n    \"\"\"A duck can both swim and fly.\n    Duck('Donald').describe() should return 'Donald: can swim, can fly'\"\"\"\n    def __init__(self, name: str):\n        super().__init__(name)",
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.000s\n\nOK\n"
+  },
+  {
+    "id": "bf_015",
+    "category": "bugfix",
+    "difficulty": "hard",
+    "title": "Async context manager misuse",
+    "passed": true,
+    "error": null,
+    "generated_code": "import asyncio\n\nclass AsyncResource:\n    \"\"\"An async resource that must be properly opened and closed.\"\"\"\n    def __init__(self, name: str):\n        self.name = name\n        self.is_open = False\n        self.operations = []\n\n    async def open(self):\n        await asyncio.sleep(0)  # simulate async I/O\n        self.is_open = True\n\n    async def close(self):\n        await asyncio.sleep(0)\n        self.is_open = False\n\n    async def __aenter__(self):\n        await self.open()\n        return self\n\n    async def __aexit__(self, *args):\n        await self.close()\n\n    async def do_work(self, item: str):\n        if not self.is_open:\n            raise RuntimeError('Resource is not open')\n        await asyncio.sleep(0)\n        self.operations.append(item)\n\n\nasync def process_items(items: list[str]) -> list[str]:\n    \"\"\"Process items using AsyncResource. Returns list of processed items.\"\"\"\n    async with AsyncResource('processor') as res:\n        for item in items:\n            await res.do_work(item)\n        return res.operations.copy()",
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nOK\n"
+  }
+]

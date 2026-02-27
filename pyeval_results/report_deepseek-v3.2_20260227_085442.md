@@ -1,0 +1,408 @@
+# PyEval Report: deepseek-v3.2 [Bug Fix]
+
+**Date:** 2026-02-27 08:54:42 UTC  
+**Mode:** Bug Fix  
+**Overall Pass Rate:** 100.0%  
+**Weighted Score:** 100.0%  
+**Total:** 15/15
+
+## Summary
+
+| Category | Easy | Medium | Hard | Total |
+|----------|------|--------|------|-------|
+| Bug Fix | 5/5 | 5/5 | 5/5 | 15/15 |
+| **TOTAL** | **5/5** | **5/5** | **5/5** | **15/15** |
+
+## Detailed Results
+
+### [PASS] bf_001: Off-by-one in range
+
+- **Category:** bugfix
+- **Difficulty:** easy
+
+<details><summary>Generated Code</summary>
+
+```python
+def sum_1_to_n(n: int) -> int:
+    """Return the sum of integers from 1 to n (inclusive)."""
+    total = 0
+    for i in range(1, n + 1):
+        total += i
+    return total
+```
+
+</details>
+
+### [PASS] bf_002: Comparison operator reversed
+
+- **Category:** bugfix
+- **Difficulty:** easy
+
+<details><summary>Generated Code</summary>
+
+```python
+def find_max(numbers: list[int]) -> int:
+    """Return the maximum value in a non-empty list of integers."""
+    result = numbers[0]
+    for num in numbers[1:]:
+        if num > result:
+            result = num
+    return result
+```
+
+</details>
+
+### [PASS] bf_003: Missing return statement
+
+- **Category:** bugfix
+- **Difficulty:** easy
+
+<details><summary>Generated Code</summary>
+
+```python
+def is_palindrome(s: str) -> bool:
+    """Check if a string is a palindrome (case-insensitive, ignoring spaces)."""
+    cleaned = s.lower().replace(' ', '')
+    return cleaned == cleaned[::-1]
+```
+
+</details>
+
+### [PASS] bf_004: Variable name typo
+
+- **Category:** bugfix
+- **Difficulty:** easy
+
+<details><summary>Generated Code</summary>
+
+```python
+def count_vowels(text: str) -> int:
+    """Count the number of vowels (a, e, i, o, u) in the text (case-insensitive)."""
+    vowels = 'aeiou'
+    count = 0
+    for char in text:
+        if char.lower() in vowels:
+            count += 1
+    return count
+```
+
+</details>
+
+### [PASS] bf_005: Wrong condition logic
+
+- **Category:** bugfix
+- **Difficulty:** easy
+
+<details><summary>Generated Code</summary>
+
+```python
+def classify_age(age: int) -> str:
+    """Classify age into categories.
+    
+    Returns:
+        'child' for age 0-12
+        'teenager' for age 13-17
+        'adult' for age 18-64
+        'senior' for age 65+
+    """
+    if age <= 12:
+        return 'child'
+    elif age <= 17:
+        return 'teenager'
+    elif age <= 64:
+        return 'adult'
+    else:
+        return 'senior'
+```
+
+</details>
+
+### [PASS] bf_006: Shallow copy vs deep copy
+
+- **Category:** bugfix
+- **Difficulty:** medium
+
+<details><summary>Generated Code</summary>
+
+```python
+def deep_copy_matrix(matrix: list[list[int]]) -> list[list[int]]:
+    """Create a deep copy of a 2D matrix so modifying the copy
+    does not affect the original."""
+    return [row.copy() for row in matrix]
+```
+
+</details>
+
+### [PASS] bf_007: Mutable default argument
+
+- **Category:** bugfix
+- **Difficulty:** medium
+
+<details><summary>Generated Code</summary>
+
+```python
+def append_to_list(value: int, lst: list[int] | None = None) -> list[int]:
+    """Append a value to the list and return it.
+    If no list is provided, create a new empty list."""
+    if lst is None:
+        lst = []
+    lst.append(value)
+    return lst
+```
+
+</details>
+
+### [PASS] bf_008: Wrong exception type caught
+
+- **Category:** bugfix
+- **Difficulty:** medium
+
+<details><summary>Generated Code</summary>
+
+```python
+def safe_divide(a: float, b: float) -> dict:
+    """Safely divide a by b. Returns {'result': value} on success,
+    or {'error': message} on failure.
+    Handle both division by zero and non-numeric inputs."""
+    try:
+        result = a / b
+        return {'result': result}
+    except ZeroDivisionError:
+        return {'error': 'Division by zero'}
+    except TypeError:
+        return {'error': f'Invalid types: {type(a).__name__}, {type(b).__name__}'}
+```
+
+</details>
+
+### [PASS] bf_009: Closure variable capture
+
+- **Category:** bugfix
+- **Difficulty:** medium
+
+<details><summary>Generated Code</summary>
+
+```python
+def make_multipliers(n: int) -> list:
+    """Create a list of n multiplier functions.
+    make_multipliers(5) should return [f0, f1, f2, f3, f4]
+    where fi(x) returns x * i."""
+    multipliers = []
+    for i in range(n):
+        multipliers.append(lambda x, i=i: x * i)
+    return multipliers
+```
+
+</details>
+
+### [PASS] bf_010: Integer division vs float division
+
+- **Category:** bugfix
+- **Difficulty:** medium
+
+<details><summary>Generated Code</summary>
+
+```python
+def compute_average(numbers: list[int]) -> float:
+    """Compute the arithmetic average of a list of integers.
+    Return 0.0 for an empty list."""
+    if not numbers:
+        return 0.0
+    return sum(numbers) / len(numbers)
+```
+
+</details>
+
+### [PASS] bf_011: Thread race condition - missing lock
+
+- **Category:** bugfix
+- **Difficulty:** hard
+
+<details><summary>Generated Code</summary>
+
+```python
+import threading
+
+class Counter:
+    """A thread-safe counter."""
+    def __init__(self):
+        self.value = 0
+        self._lock = threading.Lock()
+
+    def increment(self):
+        with self._lock:
+            self.value += 1
+
+    def get(self) -> int:
+        with self._lock:
+            return self.value
+
+
+def parallel_increment(n: int, num_threads: int = 4) -> int:
+    """Increment a counter n times using multiple threads.
+    Returns the final counter value which should equal n."""
+    counter = Counter()
+    threads = []
+    per_thread = n // num_threads
+
+    def worker(count):
+        for _ in range(count):
+            counter.increment()
+
+    for i in range(num_threads):
+        count = per_thread + (1 if i < n % num_threads else 0)
+        t = threading.Thread(target=worker, args=(count,))
+        threads.append(t)
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    return counter.get()
+```
+
+</details>
+
+### [PASS] bf_012: Generator exhaustion on second iteration
+
+- **Category:** bugfix
+- **Difficulty:** hard
+
+<details><summary>Generated Code</summary>
+
+```python
+def multi_pass_stats(data) -> dict:
+    """Compute statistics over data in multiple passes.
+    
+    Args:
+        data: an iterable of numbers
+    
+    Returns:
+        dict with 'sum', 'count', 'mean', and 'max' keys.
+    """
+    # Convert to list to allow multiple passes over the data
+    data_list = list(data)
+    
+    total = sum(data_list)
+    count = len(data_list)
+    mean = total / count if count > 0 else 0.0
+    maximum = max(data_list) if count > 0 else None
+    return {'sum': total, 'count': count, 'mean': mean, 'max': maximum}
+```
+
+</details>
+
+### [PASS] bf_013: Decorator missing functools.wraps
+
+- **Category:** bugfix
+- **Difficulty:** hard
+
+<details><summary>Generated Code</summary>
+
+```python
+import time
+from functools import wraps
+
+def timing_decorator(func):
+    """Decorator that measures and stores execution time.
+    The decorated function should preserve the original function's
+    __name__ and __doc__ attributes."""
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        wrapper.last_elapsed = end - start
+        return result
+    wrapper.last_elapsed = 0.0
+    return wrapper
+```
+
+</details>
+
+### [PASS] bf_014: Diamond inheritance MRO issue
+
+- **Category:** bugfix
+- **Difficulty:** hard
+
+<details><summary>Generated Code</summary>
+
+```python
+class Animal:
+    def __init__(self, name: str):
+        self.name = name
+        self.traits = []
+
+    def describe(self) -> str:
+        return f"{self.name}: {', '.join(self.traits)}"
+
+
+class Swimmer(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.traits.append('can swim')
+
+
+class Flyer(Animal):
+    def __init__(self, name: str):
+        super().__init__(name)
+        self.traits.append('can fly')
+
+
+class Duck(Swimmer, Flyer):
+    """A duck can both swim and fly.
+    Duck('Donald').describe() should return 'Donald: can swim, can fly'"""
+    def __init__(self, name: str):
+        super().__init__(name)
+```
+
+</details>
+
+### [PASS] bf_015: Async context manager misuse
+
+- **Category:** bugfix
+- **Difficulty:** hard
+
+<details><summary>Generated Code</summary>
+
+```python
+import asyncio
+
+class AsyncResource:
+    """An async resource that must be properly opened and closed."""
+    def __init__(self, name: str):
+        self.name = name
+        self.is_open = False
+        self.operations = []
+
+    async def open(self):
+        await asyncio.sleep(0)  # simulate async I/O
+        self.is_open = True
+
+    async def close(self):
+        await asyncio.sleep(0)
+        self.is_open = False
+
+    async def __aenter__(self):
+        await self.open()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close()
+
+    async def do_work(self, item: str):
+        if not self.is_open:
+            raise RuntimeError('Resource is not open')
+        await asyncio.sleep(0)
+        self.operations.append(item)
+
+
+async def process_items(items: list[str]) -> list[str]:
+    """Process items using AsyncResource. Returns list of processed items."""
+    async with AsyncResource('processor') as res:
+        for item in items:
+            await res.do_work(item)
+        return res.operations.copy()
+```
+
+</details>
